@@ -1,0 +1,5 @@
+{
+  "name": "AlphaMarket",
+  "description": "A high-performance market analysis terminal featuring Supabase Multi-Tenancy architecture and AI-powered asset analysis.",
+  "requestFramePermissions": []
+}
