@@ -14,11 +14,11 @@ export interface MarketData {
 
 export const analyzeAsset = async (symbol: string, data: MarketData, language: 'en' | 'pt' | 'es' = 'en'): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || 'FAKE_API_KEY_FOR_DEVELOPMENT' });
     
     let systemInstruction = "You are a senior hedge fund analyst at AlphaMarket. Provide a razor-sharp technical and fundamental outlook.";
-    if (language === 'pt') systemInstruction = "Você é um analista sênior de hedge fund no AlphaMarket. Forneça uma análise técnica e fundamentalista ultra-precisa em Português do Brasil.";
-    if (language === 'es') systemInstruction = "Eres un analista senior de hedge fund en AlphaMarket. Proporciona un análisis técnico y fundamental preciso en Español.";
+    if (language === 'pt') systemInstruction = "VocÃª Ã© um analista sÃªnior de hedge fund no AlphaMarket. ForneÃ§a uma anÃ¡lise tÃ©cnica e fundamentalista ultra-precisa em PortuguÃªs do Brasil.";
+    if (language === 'es') systemInstruction = "Eres un analista senior de hedge fund en AlphaMarket. Proporciona un anÃ¡lisis tÃ©cnico y fundamental preciso en EspaÃ±ol.";
 
     const prompt = `
       ASSET: ${symbol}
@@ -56,10 +56,10 @@ export const analyzeAsset = async (symbol: string, data: MarketData, language: '
 
 export const analyzeMarketOverview = async (assets: any[], language: 'en' | 'pt' | 'es' = 'en'): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || 'FAKE_API_KEY_FOR_DEVELOPMENT' });
     
     let systemInstruction = "You are a market portfolio manager providing a brief daily snapshot.";
-    if (language === 'pt') systemInstruction = "Você é um gestor de portfólio de mercado fornecendo um resumo diário breve.";
+    if (language === 'pt') systemInstruction = "VocÃª Ã© um gestor de portfÃ³lio de mercado fornecendo um resumo diÃ¡rio breve.";
 
     const assetSummary = assets.slice(0, 10).map(a => `${a.symbol} (${a.change}%)`).join(", ");
 
