@@ -10,19 +10,13 @@ interface DashboardProps {
 
 type SortOption = 'default' | 'name_asc' | 'price_desc' | 'price_asc' | 'change_desc' | 'change_asc';
 
-// Utilitário para stringify seguro (Remove refs circulares e Nós DOM que causam crash)
 const safeStringify = (obj: any) => {
   const seen = new WeakSet();
   try {
     return JSON.stringify(obj, (key, value) => {
-      // Passar primitivos
       if (value === null || typeof value !== 'object') return value;
-      
-      // Checar circulares
       if (seen.has(value)) return undefined;
       seen.add(value);
-      
-      // CRÍTICO: Filtrar Nós DOM (HTMLDivElement) e Internos do React
       if (
           (typeof value.nodeType === 'number') ||
           (value instanceof Node) ||
@@ -34,11 +28,9 @@ const safeStringify = (obj: any) => {
       ) {
         return undefined;
       }
-      
       return value;
     });
   } catch (e) {
-    console.warn("Failed to stringify object for cache", e);
     return "{}";
   }
 };
@@ -128,8 +120,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOption, setSortOption] = useState<SortOption>('default');
   const [showHelp, setShowHelp] = useState(false);
+  const [lastUpdateTime, setLastUpdateTime] = useState<string>('--:--:--');
   
-  // Initialize from LocalStorage to prevent "loading again" on refresh
   const [marketData, setMarketData] = useState<Record<string, Partial<MarketData>>>(() => {
     try {
       const cached = localStorage.getItem('ALPHA_MARKET_CACHE');
@@ -141,7 +133,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
   
   const isFetchingRef = useRef(false);
 
-  // Persistence Effect
   useEffect(() => {
     if (Object.keys(marketData).length === 0) return;
     try {
@@ -160,6 +151,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
         try {
             const data = await fetchYahooQuotesBatch(allSymbols);
             setMarketData(prev => ({ ...prev, ...data }));
+            setLastUpdateTime(new Date().toLocaleTimeString('pt-BR'));
         } catch (e) {
             console.error("Batch load failed", e);
         } finally {
@@ -167,10 +159,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
         }
     };
     
-    // Load immediately
     load();
-    
-    // Refresh every 8 seconds
     const interval = setInterval(load, 8000); 
     return () => clearInterval(interval);
   }, []);
@@ -202,6 +191,60 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
     }
   };
 
+  const labels = {
+    pt: {
+      market: 'MERCADO',
+      global: 'GLOBAL',
+      terminalActive: 'TERMINAL ATIVO',
+      lastUpdate: 'ÚLTIMA ATUALIZAÇÃO',
+      searchTerminal: 'BUSCAR TERMINAL',
+      placeholder: 'DIGITE TICKER...',
+      sortEngine: 'MOTOR DE FILTRO',
+      helpTitle: 'Não achou algum ativo?',
+      helpDesc: 'Pesquise e clique ENTER para carregá-lo globalmente.',
+      sortDefault: 'PADRÃO',
+      sortAZ: 'A-Z',
+      sortPriceDesc: 'PREÇO: MAIOR',
+      sortPriceAsc: 'PREÇO: MENOR',
+      sortChangeDesc: 'VARIAÇÃO: ALTA',
+      sortChangeAsc: 'VARIAÇÃO: BAIXA'
+    },
+    en: {
+      market: 'MARKET',
+      global: 'GLOBAL',
+      terminalActive: 'ACTIVE TERMINAL',
+      lastUpdate: 'LAST UPDATE',
+      searchTerminal: 'SEARCH TERMINAL',
+      placeholder: 'ENTER TICKER...',
+      sortEngine: 'SORT ENGINE',
+      helpTitle: "Can't find an asset?",
+      helpDesc: 'Search and press ENTER to load it globally.',
+      sortDefault: 'DEFAULT',
+      sortAZ: 'A-Z',
+      sortPriceDesc: 'PRICE: HIGHEST',
+      sortPriceAsc: 'PRICE: LOWEST',
+      sortChangeDesc: 'CHANGE: HIGHEST',
+      sortChangeAsc: 'CHANGE: LOWEST'
+    },
+    es: {
+      market: 'MERCADO',
+      global: 'GLOBAL',
+      terminalActive: 'TERMINAL ACTIVO',
+      lastUpdate: 'ÚLTIMA ACTUALIZACIÓN',
+      searchTerminal: 'BUSCAR TERMINAL',
+      placeholder: 'INGRESAR TICKER...',
+      sortEngine: 'MOTOR DE FILTRO',
+      helpTitle: '¿No encuentras un activo?',
+      helpDesc: 'Busca y presiona ENTER para cargarlo globalmente.',
+      sortDefault: 'ESTÁNDAR',
+      sortAZ: 'A-Z',
+      sortPriceDesc: 'PRECIO: MAYOR',
+      sortPriceAsc: 'PRECIO: MENOR',
+      sortChangeDesc: 'VARIACIÓN: ALTA',
+      sortChangeAsc: 'VARIACIÓN: BAJA'
+    }
+  }[language];
+
   return (
     <div className="min-h-screen flex flex-col bg-black">
       <div className="w-full h-10 border-b border-[#111] bg-black shrink-0 relative z-10">
@@ -230,26 +273,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
           <div className="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8 border-b border-[#111] pb-12">
             <div className="animate-in slide-in-from-left duration-700">
               <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4 uppercase leading-[0.85]">
-                {language === 'pt' ? 'MERCADO' : 'MARKET'} <br />
-                <span className="text-neon neon-text-glow italic">GLOBAL</span>
+                {labels.market} <br />
+                <span className="text-neon neon-text-glow italic">{labels.global}</span>
               </h2>
               <div className="flex items-center gap-4 mt-6">
                 <p className="text-gray-600 text-[12px] font-mono uppercase tracking-[0.4em] flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping"></span>
-                    TERMINAL ATIVO
+                    {labels.terminalActive}
                 </p>
-                {Object.keys(marketData).length > 0 && (
-                    <span className="text-[10px] text-green-900 bg-green-900/10 border border-green-900/30 px-2 py-0.5 rounded font-mono">
-                        DATA FEED: OK
-                    </span>
-                )}
+                <div className="flex items-center gap-2 bg-neon/10 border border-neon/30 px-3 py-1 rounded-sm">
+                   <svg className="w-3 h-3 text-neon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                   <span className="text-[10px] text-neon font-mono uppercase tracking-widest font-black">
+                       {labels.lastUpdate}: {lastUpdateTime}
+                   </span>
+                </div>
               </div>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-6 w-full lg:w-auto items-end animate-in slide-in-from-right duration-700">
                 <div className="flex flex-col gap-2 w-full sm:w-[400px] relative group">
                    <div className="flex justify-between items-end">
-                      <label className="text-[10px] text-red-600 uppercase tracking-[0.4em] font-black">Search Terminal</label>
+                      <label className="text-[10px] text-red-600 uppercase tracking-[0.4em] font-black">{labels.searchTerminal}</label>
                       <button 
                         onMouseEnter={() => setShowHelp(true)}
                         onMouseLeave={() => setShowHelp(false)}
@@ -261,15 +305,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
                    
                    <div className={`absolute bottom-full right-0 mb-2 w-64 bg-[#0d1117] border border-[#30363d] p-4 shadow-xl z-20 transition-all duration-300 pointer-events-none ${showHelp ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
                       <p className="text-xs text-gray-300 font-mono leading-relaxed">
-                         Não achou algum ativo? <br/>
-                         <span className="text-[#2f81f7] font-bold">Pesquise e clique ENTER</span> para carregá-lo globalmente.
+                         {labels.helpTitle} <br/>
+                         <span className="text-[#2f81f7] font-bold">{labels.helpDesc}</span>
                       </p>
-                      <div className="absolute -bottom-1 right-2 w-2 h-2 bg-[#0d1117] border-b border-r border-[#30363d] rotate-45"></div>
                    </div>
 
                    <input 
                     type="text" 
-                    placeholder="DIGITE TICKER..."
+                    placeholder={labels.placeholder}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     onKeyDown={handleSearchKeyDown}
@@ -278,18 +321,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ onSelectAsset, language })
                 </div>
 
                 <div className="flex flex-col gap-2">
-                   <label className="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-black">Sort Engine</label>
+                   <label className="text-[10px] text-gray-600 uppercase tracking-[0.4em] font-black">{labels.sortEngine}</label>
                    <select 
                       value={sortOption}
                       onChange={(e) => setSortOption(e.target.value as SortOption)}
                       className="bg-[#080808] border border-[#222] text-white text-sm p-4 uppercase focus:border-red-600 outline-none font-mono tracking-widest min-w-[240px] rounded-sm cursor-pointer"
                    >
-                      <option value="default">PADRÃO</option>
-                      <option value="name_asc">A-Z</option>
-                      <option value="price_desc">PREÇO: MAIOR</option>
-                      <option value="price_asc">PREÇO: MENOR</option>
-                      <option value="change_desc">VARIAÇÃO: ALTA</option>
-                      <option value="change_asc">VARIAÇÃO: BAIXA</option>
+                      <option value="default">{labels.sortDefault}</option>
+                      <option value="name_asc">{labels.sortAZ}</option>
+                      <option value="price_desc">{labels.sortPriceDesc}</option>
+                      <option value="price_asc">{labels.sortPriceAsc}</option>
+                      <option value="change_desc">{labels.sortChangeDesc}</option>
+                      <option value="change_asc">{labels.sortChangeAsc}</option>
                    </select>
                 </div>
             </div>

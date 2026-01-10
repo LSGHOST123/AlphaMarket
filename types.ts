@@ -1,5 +1,3 @@
-
-
 export interface TradingViewConfig {
   width?: string | number;
   height?: string | number;
@@ -29,7 +27,6 @@ export interface TradingViewConfig {
   backgroundColor?: string;
   gridLineColor?: string;
   largeChartUrl?: string;
-  // Added missing property to fix type error in AssetDetail.tsx
   allow_symbol_change?: boolean;
 }
 
@@ -50,6 +47,22 @@ export interface StockSymbol {
   price?: string;
   change?: string;
   logoUrl?: string;
+}
+
+export interface Organization {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url?: string;
+  role?: 'OWNER' | 'ADMIN' | 'MEMBER';
+}
+
+export interface UserProfile {
+  id: string;
+  full_name?: string;
+  avatar_url?: string;
+  language?: 'en' | 'pt' | 'es';
+  ui_style?: UIStyle;
 }
 
 export const POPULAR_SYMBOLS: StockSymbol[] = [

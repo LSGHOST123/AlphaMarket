@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlphaMarket PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script>
       const isDecember = new Date().getMonth() === 11;
       const primaryColor = isDecember ? '#ff2424' : '#00ff41';
@@ -97,10 +98,10 @@
       .santa-sleigh {
         position: fixed;
         top: 25%;
-        font-size: 20rem; /* Gigante */
+        font-size: 20rem;
         pointer-events: none;
         z-index: 0;
-        opacity: 0.1; /* Sutil para não atrapalhar o UI */
+        opacity: 0.1;
         filter: blur(2px);
         white-space: nowrap;
         will-change: left;
@@ -123,7 +124,6 @@
   <body id="body-root">
     <div id="root"></div>
     <div class="scanline-overlay"></div>
-    <!-- FIXED: Use relative path ./index.tsx instead of absolute /index.tsx -->
     <script type="module" src="./index.tsx"></script>
     <script>
       if (new Date().getMonth() === 11) {

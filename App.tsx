@@ -5,7 +5,7 @@ import { Landing } from './pages/Landing.tsx';
 import { Auth } from './pages/Auth.tsx';
 import { Dashboard } from './pages/Dashboard.tsx';
 import { AssetDetail } from './pages/AssetDetail.tsx';
-import { AppScreen, UIStyle } from './types.ts';
+import { AppScreen, UIStyle, Organization } from './types.ts';
 import { User } from '@supabase/supabase-js';
 
 const App: React.FC = () => {
@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [language, setLanguage] = useState<'en' | 'pt' | 'es'>('en');
   const [uiStyle, setUiStyle] = useState<UIStyle>('NEW');
   const [isLoading, setIsLoading] = useState(true);
+  const [activeOrg, setActiveOrg] = useState<Organization | null>(null);
 
   useEffect(() => {
     const initSession = async () => {
@@ -163,6 +164,8 @@ const App: React.FC = () => {
       uiStyle={uiStyle}
       onUIStyleChange={handleUIStyleChange}
       onLogoClick={handleLogoClick}
+      activeOrg={activeOrg}
+      setActiveOrg={setActiveOrg}
     >
       {renderScreen()}
     </Layout>
