@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { AppScreen, UIStyle } from '../types';
-import { supabase } from '../services/supabaseClient';
+import { AppScreen, UIStyle } from '../types.ts';
+import { supabase } from '../services/supabaseClient.ts';
 
 interface LayoutProps {
   currentScreen: AppScreen;

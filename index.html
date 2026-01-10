@@ -117,22 +117,23 @@
       }
     }
     </script>
+    <!-- Add Babel Standalone to compile TSX in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   </head>
   <body id="body-root">
     <div id="root"></div>
     <div class="scanline-overlay"></div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Changed type to text/babel and added data-presets -->
+    <script type="text/babel" data-type="module" data-presets="typescript,react" src="./index.tsx"></script>
     <script>
       if (new Date().getMonth() === 11) {
         document.body.setAttribute('data-theme', 'christmas');
         
-        // Criar o Papai Noel gigante no treno
         const santa = document.createElement('div');
         santa.className = 'santa-sleigh animate-sleigh';
         santa.innerHTML = '🎅🛷🦌🦌🦌';
         document.body.appendChild(santa);
 
-        // Criar flocos de neve básicos
         setInterval(() => {
           const flake = document.createElement('div');
           flake.className = 'snowflake animate-snow';

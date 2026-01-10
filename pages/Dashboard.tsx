@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
-import { POPULAR_SYMBOLS, StockSymbol, getLogo } from '../constants';
-import { TradingViewWidget } from '../components/TradingViewWidget';
-import { fetchYahooQuotesBatch, formatMoney, formatNumber, MarketData } from '../services/yahooFinanceService';
+import { POPULAR_SYMBOLS, StockSymbol, getLogo } from '../constants.ts';
+import { TradingViewWidget } from '../components/TradingViewWidget.tsx';
+import { fetchYahooQuotesBatch, formatMoney, formatNumber, MarketData } from '../services/yahooFinanceService.ts';
 
 interface DashboardProps {
   onSelectAsset: (symbol: string) => void;

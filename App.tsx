@@ -1,12 +1,11 @@
-
 import React, { useEffect, useState } from 'react';
-import { supabase } from './services/supabaseClient';
-import { Layout } from './components/Layout';
-import { Landing } from './pages/Landing';
-import { Auth } from './pages/Auth';
-import { Dashboard } from './pages/Dashboard';
-import { AssetDetail } from './pages/AssetDetail';
-import { AppScreen, UIStyle } from './types';
+import { supabase } from './services/supabaseClient.ts';
+import { Layout } from './components/Layout.tsx';
+import { Landing } from './pages/Landing.tsx';
+import { Auth } from './pages/Auth.tsx';
+import { Dashboard } from './pages/Dashboard.tsx';
+import { AssetDetail } from './pages/AssetDetail.tsx';
+import { AppScreen, UIStyle } from './types.ts';
 import { User } from '@supabase/supabase-js';
 
 const App: React.FC = () => {

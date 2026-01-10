@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
-import { TradingViewWidget } from '../components/TradingViewWidget';
-import { analyzeAsset } from '../services/geminiService';
-import { fetchYahooData, MarketData, formatMoney, formatNumber, formatCompact } from '../services/yahooFinanceService';
-import { getLogo } from '../constants';
-import { UIStyle } from '../types';
+import { TradingViewWidget } from '../components/TradingViewWidget.tsx';
+import { analyzeAsset } from '../services/geminiService.ts';
+import { fetchYahooData, MarketData, formatMoney, formatNumber, formatCompact } from '../services/yahooFinanceService.ts';
+import { getLogo } from '../constants.ts';
+import { UIStyle } from '../types.ts';
 
 interface AssetDetailProps {
   symbol: string;

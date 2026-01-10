@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import { TradingViewConfig } from '../types';
+import { TradingViewConfig } from '../types.ts';
 
 interface TradingViewWidgetProps {
   containerId: string;
