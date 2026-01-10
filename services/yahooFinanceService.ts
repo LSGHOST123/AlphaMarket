@@ -47,13 +47,15 @@ const translateToYahoo = (symbol: string): string => {
 const fetchRawData = async (yahooSymbol: string) => {
   // Lista de proxies para rotação (Failover Strategy)
   const proxies = [
-    // Proxy 1: Rápido e Permissivo
+    // Proxy 1: AllOrigins (Estável)
+    (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    // Proxy 2: CorsProxy (Rápido)
     (url: string) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    // Proxy 2: Fallback Clássico
-    (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+    // Proxy 3: ThingProxy (Fallback)
+    (url: string) => `https://thingproxy.freeboard.io/fetch/${url}`
   ];
 
-  const maxRetries = 4; 
+  const maxRetries = 6; // Increased retries due to unstable public proxies
   const cacheBuster = Math.floor(Date.now() / 1000); // Cache buster por segundo
   
   // Params: includePrePost=false para garantir dados do pregão regular
@@ -65,7 +67,7 @@ const fetchRawData = async (yahooSymbol: string) => {
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      const timeoutId = setTimeout(() => controller.abort(), 4000); // 4s timeout
 
       const res = await fetch(proxyUrl, { signal: controller.signal });
       clearTimeout(timeoutId);
@@ -74,9 +76,17 @@ const fetchRawData = async (yahooSymbol: string) => {
       
       const data = await res.json();
       
+      // Validação de estrutura do Yahoo
       if (data?.chart?.result?.[0]?.meta) {
         return data;
       }
+      
+      // Se retornou JSON mas sem os dados esperados (ex: erro do Yahoo encapsulado)
+      if (data?.chart?.error) {
+         console.warn(`Yahoo API Error for ${yahooSymbol}:`, data.chart.error);
+         throw new Error("Yahoo API Error");
+      }
+
       throw new Error("Empty Data Structure");
 
     } catch (e) {
@@ -84,7 +94,8 @@ const fetchRawData = async (yahooSymbol: string) => {
         console.warn(`[AlphaMarket] Exhausted strategies for ${yahooSymbol}`);
         return null;
       }
-      await new Promise(r => setTimeout(r, 200 * Math.pow(2, i)));
+      // Backoff exponencial
+      await new Promise(r => setTimeout(r, 300 * Math.pow(1.5, i)));
     }
   }
   return null;
@@ -102,7 +113,8 @@ export const fetchYahooData = async (symbol: string): Promise<MarketData | null>
 
 export const fetchYahooQuotesBatch = async (symbols: string[]): Promise<Record<string, Partial<MarketData>>> => {
   const promises = symbols.map(async (s) => {
-      await new Promise(r => setTimeout(r, Math.random() * 800));
+      // Pequeno delay aleatório para evitar rate limit dos proxies públicos
+      await new Promise(r => setTimeout(r, Math.random() * 1000));
       const data = await fetchYahooData(s);
       return { symbol: s, data };
   });

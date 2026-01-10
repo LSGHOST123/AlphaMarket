@@ -123,8 +123,8 @@
   <body id="body-root">
     <div id="root"></div>
     <div class="scanline-overlay"></div>
-    <!-- VITE ENTRY POINT - Browser resolves this natively during dev, or uses built assets in prod -->
-    <script type="module" src="/index.tsx"></script>
+    <!-- FIXED: Use relative path ./index.tsx instead of absolute /index.tsx -->
+    <script type="module" src="./index.tsx"></script>
     <script>
       if (new Date().getMonth() === 11) {
         document.body.setAttribute('data-theme', 'christmas');
