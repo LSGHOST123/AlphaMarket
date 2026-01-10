@@ -124,7 +124,8 @@
   <body id="body-root">
     <div id="root"></div>
     <div class="scanline-overlay"></div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Alterado de type="module" para type="text/babel" com data-type="module" para evitar erro de MIME no GH Pages -->
+    <script type="text/babel" data-type="module" data-presets="typescript,react" src="./index.tsx"></script>
     <script>
       if (new Date().getMonth() === 11) {
         document.body.setAttribute('data-theme', 'christmas');
