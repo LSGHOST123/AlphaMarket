@@ -107,20 +107,7 @@
         will-change: left;
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.90.1"
-  }
-}
-</script>
-</head>
+  </head>
   <body id="body-root">
     <div id="root"></div>
     <div class="scanline-overlay"></div>
@@ -132,7 +119,7 @@
         
         const santa = document.createElement('div');
         santa.className = 'santa-sleigh animate-sleigh';
-        santa.innerHTML = '🎅🛷🦌🦌🦌';
+        santa.innerHTML = 'ðð·ð¦ð¦ð¦';
         document.body.appendChild(santa);
 
         setInterval(() => {
@@ -140,11 +127,12 @@
           flake.className = 'snowflake animate-snow';
           flake.style.left = Math.random() * 100 + 'vw';
           flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-          flake.innerHTML = ['❄', '❅', '❆', '🎅', '🎁'][Math.floor(Math.random() * 5)];
+          flake.innerHTML = ['â', 'â', 'â', 'ð', 'ð'][Math.floor(Math.random() * 5)];
           document.body.appendChild(flake);
           setTimeout(() => flake.remove(), 10000);
         }, 800);
       }
     </script>
-  </body>
+    <script type="module" src="/index.tsx"></script>
+</body>
 </html>
