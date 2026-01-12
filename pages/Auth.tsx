@@ -46,6 +46,12 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon/5 via-black to-black"></div>
       
       <div className="w-full max-w-md bg-[#050505] border border-[#222] p-10 shadow-2xl relative z-10">
+        <div className="mb-6">
+          <h2 className="text-neon font-black text-center tracking-[0.5em] uppercase text-xs animate-pulse">
+            {isLogin ? 'ENTRAR' : 'REGISTRAR'}
+          </h2>
+        </div>
+        
         <div className="text-center mb-10">
           <h2 className="text-4xl font-black text-white font-mono tracking-tighter mb-2 italic">
             ALPHA<span className="text-neon neon-text-glow">ID</span>
@@ -64,6 +70,8 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
             <label className="block text-[10px] font-mono text-neon tracking-widest mb-2 uppercase">Identifier (Email)</label>
             <input 
               type="email" 
+              name="email"
+              autoComplete="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -76,6 +84,8 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
             <div className="relative">
               <input 
                 type={showPassword ? "text" : "password"} 
+                name="password"
+                autoComplete={isLogin ? "current-password" : "new-password"}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface LandingProps {
@@ -96,10 +95,10 @@ export const Landing: React.FC<LandingProps> = ({ onStart }) => {
                 meta="LIGAÇÃO DIRETA GPT-5.1 NANO"
               />
               <InfoBlock 
-                icon="🔒" 
-                title="Multi-Tenancy" 
-                desc="Segurança militar com isolamento total por tenant. Seus dados e estratégias são protegidos por criptografia quântica em nuvem."
-                meta="SECURE SUPABASE LINK"
+                icon="🌐" 
+                title="Liquidez Global" 
+                desc="Conectividade direta com os maiores provedores de liquidez institucional, garantindo execução instantânea e spreads mínimos."
+                meta="INSTITUTIONAL LIQUIDITY"
               />
             </div>
           </div>
@@ -146,25 +145,25 @@ export const Landing: React.FC<LandingProps> = ({ onStart }) => {
                     </p>
                     <div className="mt-10 flex items-center gap-2">
                        <div className="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
-                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase">V2.0 ALPHA ENGINE</span>
+                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase">AlphaMarket V2</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#050505] border border-white/10 p-12 text-left relative group hover:border-neon transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                  <div className="bg-[#050505] border border-neon/30 p-12 text-left relative group hover:border-neon transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700">
                       <div className="text-9xl font-black italic">02</div>
                     </div>
-                    <div className="w-12 h-1 bg-white/20 mb-8 group-hover:bg-neon group-hover:w-24 transition-all duration-500"></div>
+                    <div className="w-12 h-1 bg-neon mb-8 group-hover:w-24 transition-all duration-500"></div>
                     <h4 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
                       API PARA DADOS <br />
-                      <span className="text-gray-700 italic group-hover:text-neon transition-colors duration-500">FINANCEIROS</span>
+                      <span className="text-neon italic transition-colors duration-500">FINANCEIROS</span>
                     </h4>
                     <p className="text-gray-400 text-lg leading-relaxed font-sans font-light">
                       Liberação de API gratuita com dados financeiros em tempo real de todos os ativos do mundo. Infraestrutura robusta para desenvolvedores e analistas criarem suas próprias ferramentas sobre nosso ecossistema.
                     </p>
                     <div className="mt-10 flex items-center gap-2">
-                       <div className="w-2 h-2 bg-white/20 rounded-full group-hover:bg-neon transition-colors"></div>
-                       <span className="text-[10px] text-gray-700 group-hover:text-neon transition-colors font-black tracking-[0.4em] uppercase">OPEN ALPHA CONNECT</span>
+                       <div className="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
+                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase">AlphaMarket Open API</span>
                     </div>
                   </div>
                 </div>
@@ -219,7 +218,7 @@ export const Landing: React.FC<LandingProps> = ({ onStart }) => {
 
                               <div className="bg-neon/10 border-2 border-neon/40 p-8 mt-4 rounded-sm">
                                    <p className="text-neon text-xs font-mono uppercase tracking-[0.2em] leading-relaxed text-center font-black">
-                                      * SUA CONTRIBUIÇÃO ACELERA O DESENVOLVIMENTO DO MÓDULO DE INVESTIMENTO AUTOMÁTICO (V2.0) COM O GPT-5.1 NANO.
+                                      * SUA CONTRIBUIÇÃO ACELERA AS PRÓXIMAS UPDATES DO SISTEMA.
                                    </p>
                               </div>
                           </div>
