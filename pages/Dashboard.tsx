@@ -51,11 +51,11 @@ const AssetCard: React.FC<{
     return (
         <div 
             onClick={onClick}
-            className="group relative bg-[#030303] border border-[#222] hover:border-red-600 p-5 cursor-pointer transition-all duration-300 flex flex-col justify-between min-h-[280px] hover:shadow-[0_0_50px_rgba(220,38,38,0.2)] hover:-translate-y-2 overflow-hidden"
+            className="group relative bg-[#030303] border border-[#222] hover:border-red-600 p-6 cursor-pointer transition-all duration-300 flex flex-col justify-between min-h-[340px] hover:shadow-[0_0_50px_rgba(220,38,38,0.2)] hover:-translate-y-2 overflow-hidden"
         >
-            <div className="flex flex-col items-start gap-3 relative z-10 w-full">
+            <div className="flex flex-col items-start gap-4 relative z-10 w-full">
                 <div className="flex items-start justify-between w-full">
-                    <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center p-2 border-2 border-[#111] shadow-2xl overflow-hidden shrink-0">
+                    <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center p-2 border-2 border-[#111] shadow-2xl overflow-hidden shrink-0">
                         {imgError ? (
                             <div className="w-full h-full flex items-center justify-center bg-white">
                                 <span className="text-black font-black text-lg">{displaySymbol.substring(0,2)}</span>
@@ -77,26 +77,26 @@ const AssetCard: React.FC<{
                     </div>
                 </div>
                 <div className="w-full">
-                    <h3 className="text-lg font-black text-white font-mono leading-[1.1] group-hover:text-red-500 transition-colors tracking-tighter uppercase line-clamp-2">
+                    <h3 className="text-xl font-black text-white font-mono leading-[1.2] group-hover:text-red-500 transition-colors tracking-tighter uppercase line-clamp-2">
                         {displayName}
                     </h3>
-                    <span className="text-[10px] text-gray-600 font-mono tracking-widest block mt-1 font-black uppercase">{fullTicker}</span>
+                    <span className="text-[10px] text-gray-600 font-mono tracking-widest block mt-2 font-black uppercase">{fullTicker}</span>
                 </div>
             </div>
 
-            <div className="mt-auto border-t border-[#111] pt-4 w-full relative z-10">
+            <div className="mt-auto border-t border-[#111] pt-6 w-full relative z-10">
                 {!data ? (
-                    <div className="space-y-2">
-                        <div className="h-6 w-32 bg-[#080808] animate-pulse border border-[#111] rounded-sm"></div>
-                        <div className="h-3 w-20 bg-[#080808] animate-pulse border border-[#111] rounded-sm"></div>
-                        <span className="text-[8px] text-gray-700 font-mono">CONNECTING...</span>
+                    <div className="space-y-3">
+                        <div className="h-8 w-40 bg-[#080808] animate-pulse border border-[#111] rounded-sm"></div>
+                        <div className="h-4 w-24 bg-[#080808] animate-pulse border border-[#111] rounded-sm"></div>
+                        <span className="text-[9px] text-gray-700 font-mono">CONNECTING...</span>
                     </div>
                 ) : (
                     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-2 duration-700">
-                        <span className="text-2xl font-mono font-black text-white tracking-tighter leading-none mb-1">
+                        <span className="text-3xl font-mono font-black text-white tracking-tighter leading-none mb-2">
                             {formatMoney(data.price, data.currency)}
                         </span>
-                        <div className={`flex items-center gap-3 text-xs font-mono font-black ${!hasValidChange ? 'text-gray-500' : (isPositive ? 'text-green-500' : 'text-red-600')}`}>
+                        <div className={`flex items-center gap-3 text-sm font-mono font-black ${!hasValidChange ? 'text-gray-500' : (isPositive ? 'text-green-500' : 'text-red-600')}`}>
                             <span className="flex items-center gap-1">
                                 {hasValidChange ? (
                                     <>
@@ -104,7 +104,7 @@ const AssetCard: React.FC<{
                                     </>
                                 ) : '---'}
                             </span>
-                            <span className="bg-white/5 px-1 py-0.5 rounded-sm border border-white/5">
+                            <span className="bg-white/5 px-1.5 py-0.5 rounded-sm border border-white/5">
                                 ({hasValidChange ? `${formatNumber(Math.abs(data.changePercent))}%` : '---'})
                             </span>
                         </div>
