@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlphaMarket PRO</title>
+    
+    <!-- Tailwind CDN (Mantido para compatibilidade imediata com os estilos atuais) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script>
       const isDecember = new Date().getMonth() === 11;
       const primaryColor = isDecember ? '#ff2424' : '#00ff41';
@@ -52,119 +53,23 @@
         }
       }
     </script>
-    <style>
-      body {
-        background-color: #000000;
-        color: #e6edf3;
-        overflow-x: hidden;
-      }
-      ::-webkit-scrollbar { width: 6px; height: 6px; }
-      ::-webkit-scrollbar-track { background: #000; }
-      ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-      ::-webkit-scrollbar-thumb:hover { background: var(--neon-color, #00ff41); }
-      
-      .neon-glow { box-shadow: 0 0 15px rgba(var(--neon-rgb), 0.4); }
-      .neon-text-glow { text-shadow: 0 0 10px rgba(var(--neon-rgb), 0.6); }
-
-      :root {
-        --neon-color: #00ff41;
-        --neon-rgb: 0, 255, 65;
-      }
-      
-      [data-theme='christmas'] {
-        --neon-color: #ff2424;
-        --neon-rgb: 255, 36, 36;
-      }
-
-      .scanline-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1));
-        background-size: 100% 4px;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0.3;
-      }
-
-      #fallback-loader {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: black;
-        z-index: 10000;
-        font-family: monospace;
-      }
-    </style>
   <script type="importmap">
 {
   "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "vite": "https://esm.sh/vite@^7.3.1",
     "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.90.1"
   }
 }
 </script>
 </head>
-  <body id="body-root">
-    <div id="fallback-loader">
-      <div class="w-12 h-12 border-4 border-neon border-t-transparent rounded-full animate-spin mb-4"></div>
-      <div class="text-neon animate-pulse tracking-[0.3em] text-xs uppercase">Carregando Terminal Alpha...</div>
-    </div>
-
+  <body>
     <div id="root"></div>
-    <div class="scanline-overlay"></div>
-
-    <!-- Bootstrapper Dinâmico: Resolve o problema de MIME Type buscando como texto -->
-    <script type="text/babel" data-type="module" data-presets="typescript,react">
-      import "./index.tsx";
-      
-      // Remove o loader assim que o script carregar (ou deixe o React gerenciar)
-      window.addEventListener('load', () => {
-        const loader = document.getElementById('fallback-loader');
-        if (loader) loader.style.display = 'none';
-      });
-
-      // Fallback de segurança para erro de carregamento
-      window.onerror = function(msg, url, line) {
-        const loader = document.getElementById('fallback-loader');
-        if (loader) {
-          loader.innerHTML = `<div class="text-red-500 p-8 border border-red-900 bg-red-900/10 font-mono text-xs">
-            <h1 class="font-bold mb-4">ERRO DE INICIALIZAÇÃO NEURAL</h1>
-            <p>${msg}</p>
-            <p class="mt-4 text-gray-500">Dica: O GitHub Pages pode estar demorando para servir os arquivos .tsx. Tente recarregar (Ctrl+F5).</p>
-          </div>`;
-        }
-        return false;
-      };
-    </script>
-
-    <script>
-      if (new Date().getMonth() === 11) {
-        document.body.setAttribute('data-theme', 'christmas');
-        
-        const santa = document.createElement('div');
-        santa.className = 'santa-sleigh animate-sleigh';
-        santa.innerHTML = '🎅🛷🦌🦌🦌';
-        document.body.appendChild(santa);
-
-        setInterval(() => {
-          const flake = document.createElement('div');
-          flake.className = 'snowflake animate-snow';
-          flake.style.left = Math.random() * 100 + 'vw';
-          flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-          flake.innerHTML = ['❄', '❅', '❆', '🎅', '🎁'][Math.floor(Math.random() * 5)];
-          document.body.appendChild(flake);
-          setTimeout(() => flake.remove(), 10000);
-        }, 800);
-      }
-    </script>
+    <!-- Entry Point Padrão do Vite -->
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

@@ -1,34 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
+import './index.css';
 
-const init = () => {
-  const rootElement = document.getElementById('root');
-  if (!rootElement) {
-    console.error("Critical: Root element not found");
-    return;
-  }
+// Lógica do Tema de Natal
+if (new Date().getMonth() === 11) {
+  document.body.setAttribute('data-theme', 'christmas');
+  
+  const santa = document.createElement('div');
+  santa.className = 'santa-sleigh animate-sleigh';
+  santa.innerHTML = '🎅🛷🦌🦌🦌';
+  document.body.appendChild(santa);
 
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-
-  // Oculta o loader de fallback assim que o React assume o controle
-  const loader = document.getElementById('fallback-loader');
-  if (loader) {
-    loader.style.opacity = '0';
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 500);
-  }
-};
-
-// Verifica se o DOM já está pronto ou aguarda
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
+  setInterval(() => {
+    const flake = document.createElement('div');
+    flake.className = 'snowflake animate-snow';
+    flake.style.left = Math.random() * 100 + 'vw';
+    flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    flake.innerHTML = ['❄', '❅', '❆', '🎅', '🎁'][Math.floor(Math.random() * 5)];
+    document.body.appendChild(flake);
+    setTimeout(() => flake.remove(), 10000);
+  }, 800);
 }
+
+const rootElement = document.getElementById('root');
+if (!rootElement) throw new Error('Failed to find the root element');
+
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
