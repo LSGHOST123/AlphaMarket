@@ -129,11 +129,45 @@ export const Landing: React.FC<LandingProps> = ({ onStart }) => {
 
         <section className="py-40 bg-[#020202] border-t border-[#111] relative overflow-hidden">
             <div className="max-w-[1800px] mx-auto px-10 text-center relative z-10">
-                <h2 className="text-neon text-sm font-black tracking-[0.8em] uppercase mb-8">PRÓXIMAS ATUALIZAÇÕES</h2>
-                <h3 className="text-7xl md:text-[10rem] font-black uppercase tracking-tighter mb-12">
-                   DEIXAR A IA INVESTIR <br />
-                   <span className="text-gray-700 italic uppercase">PARA VOCÊ</span>
-                </h3>
+                <h2 className="text-neon text-sm font-black tracking-[0.8em] uppercase mb-24">PRÓXIMAS ATUALIZAÇÕES</h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-32 max-w-6xl mx-auto">
+                  <div className="bg-[#050505] border border-neon/30 p-12 text-left relative group hover:border-neon transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700">
+                      <div className="text-9xl font-black italic">01</div>
+                    </div>
+                    <div className="w-12 h-1 bg-neon mb-8 group-hover:w-24 transition-all duration-500"></div>
+                    <h4 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
+                      DEIXAR A IA INVESTIR <br />
+                      <span className="text-neon italic">PARA VOCÊ</span>
+                    </h4>
+                    <p className="text-gray-400 text-lg leading-relaxed font-sans font-light">
+                      Automação total de portfólio baseada em redes neurais de alta performance. Nosso motor de execução operará suas estratégias 24/7 com precisão institucional e gerenciamento de risco neural.
+                    </p>
+                    <div className="mt-10 flex items-center gap-2">
+                       <div className="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
+                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase">V2.0 ALPHA ENGINE</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#050505] border border-white/10 p-12 text-left relative group hover:border-neon transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                    <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700">
+                      <div className="text-9xl font-black italic">02</div>
+                    </div>
+                    <div className="w-12 h-1 bg-white/20 mb-8 group-hover:bg-neon group-hover:w-24 transition-all duration-500"></div>
+                    <h4 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
+                      API PARA DADOS <br />
+                      <span className="text-gray-700 italic group-hover:text-neon transition-colors duration-500">FINANCEIROS</span>
+                    </h4>
+                    <p className="text-gray-400 text-lg leading-relaxed font-sans font-light">
+                      Liberação de API gratuita com dados financeiros em tempo real de todos os ativos do mundo. Infraestrutura robusta para desenvolvedores e analistas criarem suas próprias ferramentas sobre nosso ecossistema.
+                    </p>
+                    <div className="mt-10 flex items-center gap-2">
+                       <div className="w-2 h-2 bg-white/20 rounded-full group-hover:bg-neon transition-colors"></div>
+                       <span className="text-[10px] text-gray-700 group-hover:text-neon transition-colors font-black tracking-[0.4em] uppercase">OPEN ALPHA CONNECT</span>
+                    </div>
+                  </div>
+                </div>
                 
                 <div className="mt-40 flex justify-center">
                    <div className="relative border-4 border-dashed border-neon bg-black p-12 md:p-20 w-full max-w-6xl shadow-[0_0_150px_rgba(var(--neon-rgb),0.2)]">
