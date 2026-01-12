@@ -25,10 +25,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20" # Usa Node 20 (padrão atual)
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci # Instala as dependências do package.json
+        run: npm install # Instala as dependências do package.json
 
       - name: Build
         run: npm run build # Roda o comando de build (cria a pasta dist)
