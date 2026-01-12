@@ -23,7 +23,6 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
       if (isLogin) {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        // Session handled by App.tsx subscription
       } else {
         const { error } = await supabase.auth.signUp({
           email,
@@ -46,17 +45,14 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon/5 via-black to-black"></div>
       
       <div className="w-full max-w-md bg-[#050505] border border-[#222] p-10 shadow-2xl relative z-10">
-        <div className="mb-6">
-          <h2 className="text-neon font-black text-center tracking-[0.5em] uppercase text-xs animate-pulse">
+        <div className="mb-8 text-center">
+          <h2 className="text-neon font-black tracking-[0.6em] uppercase text-[10px] mb-4 animate-pulse">
             {isLogin ? 'ENTRAR' : 'REGISTRAR'}
           </h2>
-        </div>
-        
-        <div className="text-center mb-10">
-          <h2 className="text-4xl font-black text-white font-mono tracking-tighter mb-2 italic">
+          <h2 className="text-5xl font-black text-white font-mono tracking-tighter italic mb-1">
             ALPHA<span className="text-neon neon-text-glow">ID</span>
           </h2>
-          <p className="text-[10px] text-gray-500 font-mono uppercase tracking-[0.3em]">Secure Access Gateway v2.4</p>
+          <p className="text-[10px] text-gray-600 font-mono uppercase tracking-[0.3em]">Secure Access Gateway v2.4</p>
         </div>
 
         {message && (
@@ -106,7 +102,6 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
             </div>
           </div>
 
-          {/* Remember Me Toggle */}
           <div className="flex items-center gap-3">
              <div 
                onClick={() => setRememberMe(!rememberMe)}
@@ -114,7 +109,7 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
              >
                 {rememberMe && <svg className="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
              </div>
-             <span className="text-[10px] text-gray-500 font-mono uppercase tracking-wider cursor-pointer" onClick={() => setRememberMe(!rememberMe)}>
+             <span className="text-[10px] text-gray-600 font-mono uppercase tracking-wider cursor-pointer" onClick={() => setRememberMe(!rememberMe)}>
                Keep Session Active
              </span>
           </div>
@@ -122,7 +117,7 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
           <button 
             type="submit" 
             disabled={loading}
-            className="w-full bg-neon text-black font-black py-4 hover:bg-white transition-colors uppercase tracking-[0.2em] font-mono disabled:opacity-50 text-xs shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
+            className="w-full bg-neon text-black font-black py-4 hover:bg-white transition-colors uppercase tracking-[0.2em] font-mono disabled:opacity-50 text-xs shadow-[0_0_20px_rgba(var(--neon-rgb),0.3)]"
           >
             {loading ? 'PROCESSING...' : (isLogin ? 'INITIATE SESSION' : 'REGISTER IDENTITY')}
           </button>
@@ -131,7 +126,7 @@ export const Auth: React.FC<AuthProps> = ({ onSuccess }) => {
         <div className="mt-8 text-center pt-8 border-t border-[#111]">
           <button 
             onClick={() => { setIsLogin(!isLogin); setMessage(null); }}
-            className="text-[10px] font-mono text-gray-600 hover:text-neon transition-colors uppercase tracking-widest"
+            className="text-[10px] font-mono text-gray-700 hover:text-neon transition-colors uppercase tracking-widest"
           >
             {isLogin ? "CREATE ACCOUNT" : "LOGIN ACCOUNT"}
           </button>

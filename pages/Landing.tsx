@@ -149,21 +149,21 @@ export const Landing: React.FC<LandingProps> = ({ onStart }) => {
                     </div>
                   </div>
 
-                  <div className="bg-[#050505] border border-neon/30 p-12 text-left relative group hover:border-neon transition-all duration-500 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                  <div className="bg-[#050505] border border-neon p-12 text-left relative group shadow-[0_0_40px_rgba(var(--neon-rgb),0.2)] hover:shadow-[0_0_60px_rgba(var(--neon-rgb),0.3)] transition-all duration-500">
                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity duration-700">
                       <div className="text-9xl font-black italic">02</div>
                     </div>
                     <div className="w-12 h-1 bg-neon mb-8 group-hover:w-24 transition-all duration-500"></div>
                     <h4 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
                       API PARA DADOS <br />
-                      <span className="text-neon italic transition-colors duration-500">FINANCEIROS</span>
+                      <span className="text-neon italic">FINANCEIROS</span>
                     </h4>
                     <p className="text-gray-400 text-lg leading-relaxed font-sans font-light">
                       Liberação de API gratuita com dados financeiros em tempo real de todos os ativos do mundo. Infraestrutura robusta para desenvolvedores e analistas criarem suas próprias ferramentas sobre nosso ecossistema.
                     </p>
                     <div className="mt-10 flex items-center gap-2">
                        <div className="w-2 h-2 bg-neon rounded-full animate-pulse"></div>
-                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase">AlphaMarket Open API</span>
+                       <span className="text-[10px] text-neon font-black tracking-[0.4em] uppercase font-bold">AlphaMarket Open API</span>
                     </div>
                   </div>
                 </div>
