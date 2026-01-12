@@ -30,7 +30,7 @@ jobs:
         run: npm install # Instala as dependências do package.json
 
       - name: Build
-        run: npm run build # Roda o comando de build (cria a pasta dist)
+        run: npx vite build # Roda o comando de build (cria a pasta dist)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
