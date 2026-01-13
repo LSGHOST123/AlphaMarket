@@ -10,6 +10,10 @@ export interface MarketData {
   volume: number;
   range52w: string;
   rangeDay: string;
+  lowDay?: number;
+  highDay?: number;
+  low52w?: number;
+  high52w?: number;
   currency: string;
   symbol: string;
   longName: string;
@@ -234,6 +238,11 @@ const normalizeV8Data = (result: any, requestSymbol: string): MarketData => {
         
         range52w: range52w,
         rangeDay: rangeDay,
+
+        lowDay: dayLow,
+        highDay: dayHigh,
+        low52w: week52Low,
+        high52w: week52High,
         
         marketCap: undefined
     };
